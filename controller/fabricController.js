@@ -1,4 +1,4 @@
-const FabricCategory = require('../models/fabricModels');
+const FabricCategory = require('../Models/fabricModels');
 
 exports.createMultipleCategories = async (req, res) => {
   try {
@@ -51,3 +51,9 @@ exports.getFabricsByShop = async (req, res) => {
     res.status(500).json({ message: 'Internal server error.' });
   }
 };
+
+
+
+
+
+

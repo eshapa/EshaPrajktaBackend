@@ -16,7 +16,7 @@ app.use(express.json());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // ===== MongoDB Connection =====
-const mongoURI = "mongodb://localhost:27017/Divyluck";
+const mongoURI = process.env.MONGO_URI; // ✅ USE .env variable
 const PORT = process.env.PORT || 5000;
 
 mongoose.connect(mongoURI, {
@@ -24,7 +24,7 @@ mongoose.connect(mongoURI, {
   useUnifiedTopology: true
 })
 .then(() => {
-  console.log("✅ Connected to MongoDB");
+  console.log("✅ Connected to MongoDB Atlas");
   app.listen(PORT, () => {
     console.log(`🚀 Server is running on http://localhost:${PORT}`);
   });
@@ -43,8 +43,6 @@ const fabricRoutes = require('./Routes/fabricRoutes');
 const registerRoutes = require('./Routes/registerRoutes'); // ✅ NEW
 const orderRoutes = require('./Routes/orderRoutes');
 
-
-
 // ===== Mount Routes =====
 app.use('/api/users', userRoutes);
 app.use('/api/shops', shopRoutes);
@@ -54,6 +52,7 @@ app.use('/api/images', imageRoutes);
 app.use('/api/fabrics', fabricRoutes);
 app.use('/api/register', registerRoutes); // ✅ NEW
 app.use('/orders', orderRoutes);
+
 // ===== Default Route =====
 app.get("/", (req, res) => {
   res.send("💃 Divyluck Fashion Portal Backend is Running 🎉");
